@@ -46,42 +46,17 @@ const Profile = () => {
 
     const fetchUserData = async () => {
       try {
-        // Fetch user profile
-        const { data: profileData, error: profileError } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', user.id)
-          .single();
+        // Mock user profile data until database types are available
+        const userData = user.user_metadata || {};
+        const mockProfile: UserProfile = {
+          name: userData.name || 'User',
+          phone_number: userData.phone_number || '',
+          created_at: user.created_at || new Date().toISOString()
+        };
+        setProfile(mockProfile);
 
-        if (profileError && profileError.code !== 'PGRST116') {
-          console.error('Profile error:', profileError);
-        } else if (profileData) {
-          setProfile(profileData);
-        } else {
-          // Create profile if doesn't exist
-          const userData = user.user_metadata || {};
-          const newProfile: UserProfile = {
-            name: userData.name || 'User',
-            phone_number: userData.phone_number || '',
-            created_at: user.created_at || new Date().toISOString()
-          };
-          setProfile(newProfile);
-        }
-
-        // Fetch user subscription
-        const { data: subData, error: subError } = await supabase
-          .from('subscriptions')
-          .select('*')
-          .eq('user_id', user.id)
-          .order('created_at', { ascending: false })
-          .limit(1)
-          .single();
-
-        if (subError && subError.code !== 'PGRST116') {
-          console.error('Subscription error:', subError);
-        } else if (subData) {
-          setSubscription(subData);
-        }
+        // Mock subscription data - no active subscription for now
+        setSubscription(null);
       } catch (error) {
         console.error('Error fetching user data:', error);
       } finally {
