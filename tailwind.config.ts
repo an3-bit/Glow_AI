@@ -27,6 +27,11 @@ export default {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
         },
+        glow: {
+          pink: "hsl(var(--glow-pink))",
+          purple: "hsl(var(--glow-purple))",
+          "light-pink": "hsl(var(--glow-light-pink))",
+        },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
