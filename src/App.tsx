@@ -29,7 +29,7 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   }
   
   if (!user) {
-    return <Navigate to="/auth" replace />;
+    return <Navigate to="/" replace />;
   }
   
   return <>{children}</>;
@@ -43,8 +43,8 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/" element={<Landing />} />
+            <Route path="/" element={<Auth />} />
+            <Route path="/landing" element={<Landing />} />
             <Route path="/questionnaire" element={<Questionnaire />} />
             <Route path="/results" element={<Results />} />
             <Route path="/face-scan" element={<FaceScan />} />

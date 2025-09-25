@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,11 +11,12 @@ import { useToast } from '@/hooks/use-toast';
 const Auth = () => {
   const { user, signUp, signIn, loading } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   // Redirect if already authenticated
   if (user && !loading) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/landing" replace />;
   }
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -50,8 +51,9 @@ const Auth = () => {
         title: 'Welcome to Glow AI!',
         description: 'Your account has been created successfully.',
       });
+      navigate('/face-scan');
     }
-    
+
     setIsLoading(false);
   };
 
@@ -64,15 +66,17 @@ const Auth = () => {
     const pin = formData.get('pin') as string;
 
     const { error } = await signIn(phoneNumber, pin);
-    
+
     if (error) {
       toast({
         title: 'Sign in failed',
         description: 'Invalid phone number or PIN',
         variant: 'destructive',
       });
+    } else {
+      navigate('/landing');
     }
-    
+
     setIsLoading(false);
   };
 

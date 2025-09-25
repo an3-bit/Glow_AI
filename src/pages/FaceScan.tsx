@@ -122,8 +122,8 @@ const FaceScan = () => {
         detected_skin_tone: scanResult.skin_tone,
         confidence: scanResult.confidence
       };
-      
-      navigate('/results', { state: { answers, type: 'face-scan' } });
+
+      navigate('/questionnaire', { state: { answers, type: 'face-scan' } });
     }
   };
 

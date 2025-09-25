@@ -360,7 +360,7 @@ const Products = () => {
             <p className="text-muted-foreground mb-4">
               Try adjusting your filters to see more products
             </p>
-            <Button 
+            <Button
               onClick={() => {
                 setSearchTerm('');
                 setSkinTypeFilter('all');
@@ -372,6 +372,17 @@ const Products = () => {
             </Button>
           </Card>
         )}
+
+        {/* Continue to Subscription */}
+        <div className="text-center mt-8">
+          <Button
+            onClick={() => navigate('/subscription')}
+            className="bg-glow-pink hover:bg-glow-pink/90"
+            size="lg"
+          >
+            Continue to Subscription
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -158,6 +158,49 @@ const Landing = () => {
           </div>
         </section>
 
+        {/* Direct Access */}
+        {user && (() => {
+          const subscriptionLevel = (user as any).subscription_level || 'none';
+          const accessLinks = {
+            premium: [
+              { to: '/questionnaire', label: 'Take Questionnaire' },
+              { to: '/face-scan', label: 'Face Scan' },
+              { to: '/results', label: 'View Results' },
+              { to: '/products', label: 'Browse Products' },
+              { to: '/subscription', label: 'Manage Subscription' },
+              { to: '/profile', label: 'Profile' }
+            ],
+            basic: [
+              { to: '/questionnaire', label: 'Take Questionnaire' },
+              { to: '/face-scan', label: 'Face Scan' },
+              { to: '/products', label: 'Browse Products' }
+            ],
+            none: []
+          };
+
+          const links = accessLinks[subscriptionLevel as keyof typeof accessLinks] || [];
+
+          return links.length > 0 ? (
+            <section className="px-4 py-16">
+              <div className="max-w-4xl mx-auto text-center">
+                <h2 className="text-3xl font-bold mb-8">Quick Access</h2>
+                <div className="grid md:grid-cols-3 gap-4">
+                  {links.map((link, index) => (
+                    <Button
+                      key={index}
+                      variant="outline"
+                      className="h-16 text-lg border-glow-purple hover:bg-glow-purple hover:text-white"
+                      onClick={() => navigate(link.to)}
+                    >
+                      {link.label}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            </section>
+          ) : null;
+        })()}
+
         {/* Subscription Teaser */}
         <section className="px-4 py-16">
           <div className="max-w-4xl mx-auto text-center">

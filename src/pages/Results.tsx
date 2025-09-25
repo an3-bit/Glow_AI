@@ -270,11 +270,11 @@ const Results = () => {
             Retake Assessment
           </Button>
           
-          <Button 
+          <Button
             onClick={() => navigate('/products')}
             className="bg-glow-purple hover:bg-glow-purple/90"
           >
-            Browse All Products
+            Continue to Products
           </Button>
         </div>
       </div>
