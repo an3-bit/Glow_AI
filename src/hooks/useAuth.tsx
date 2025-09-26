@@ -39,26 +39,38 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const signUp = async (name: string, phoneNumber: string, pin: string) => {
-    const { error } = await supabase.auth.signUp({
-      email: `${phoneNumber}@glow.ai`, // Use phone as email
-      password: pin,
-      options: {
-        emailRedirectTo: `${window.location.origin}/`,
-        data: {
-          name,
-          phone_number: phoneNumber,
-        }
-      }
-    });
-    return { error };
+    // Mock signup for frontend testing
+    const mockUser = {
+      id: 'mock-user-id',
+      email: `${phoneNumber}@glow.ai`,
+      user_metadata: {
+        name,
+        phone_number: phoneNumber,
+      },
+      app_metadata: {},
+      aud: 'authenticated',
+      created_at: new Date().toISOString(),
+    } as User;
+    setUser(mockUser);
+    setSession({ user: mockUser } as any);
+    return { error: null };
   };
 
   const signIn = async (phoneNumber: string, pin: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
+    // Mock signin for frontend testing
+    const mockUser = {
+      id: 'mock-user-id',
       email: `${phoneNumber}@glow.ai`,
-      password: pin,
-    });
-    return { error };
+      user_metadata: {
+        phone_number: phoneNumber,
+      },
+      app_metadata: {},
+      aud: 'authenticated',
+      created_at: new Date().toISOString(),
+    } as User;
+    setUser(mockUser);
+    setSession({ user: mockUser } as any);
+    return { error: null };
   };
 
   const signOut = async () => {

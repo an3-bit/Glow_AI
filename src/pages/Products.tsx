@@ -384,8 +384,8 @@ const Products = () => {
           </Button>
         </div>
       </div>
-    </div>
-  );
+  </div>
+);
 };
 
 export default Products;

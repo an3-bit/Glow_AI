@@ -28,10 +28,10 @@ const Auth = () => {
     const phoneNumber = formData.get('phoneNumber') as string;
     const pin = formData.get('pin') as string;
 
-    if (pin.length !== 4) {
+    if (pin.length !== 6) {
       toast({
         title: 'Invalid PIN',
-        description: 'PIN must be exactly 4 digits',
+        description: 'PIN must be exactly 6 digits',
         variant: 'destructive',
       });
       setIsLoading(false);
@@ -111,14 +111,14 @@ const Auth = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signin-pin">PIN (4 digits)</Label>
+                  <Label htmlFor="signin-pin">PIN (6 digits)</Label>
                   <Input
                     id="signin-pin"
                     name="pin"
                     type="password"
-                    maxLength={4}
-                    pattern="[0-9]{4}"
-                    placeholder="1234"
+                    maxLength={6}
+                    pattern="[0-9]{6}"
+                    placeholder="123456"
                     required
                   />
                 </div>
@@ -155,14 +155,14 @@ const Auth = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-pin">PIN (4 digits)</Label>
+                  <Label htmlFor="signup-pin">PIN (6 digits)</Label>
                   <Input
                     id="signup-pin"
                     name="pin"
                     type="password"
-                    maxLength={4}
-                    pattern="[0-9]{4}"
-                    placeholder="1234"
+                    maxLength={6}
+                    pattern="[0-9]{6}"
+                    placeholder="123456"
                     required
                   />
                 </div>
