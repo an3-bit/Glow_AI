@@ -26,19 +26,19 @@ const Landing = () => {
       name: 'Amina K.',
       text: 'My skin has never looked better! The AI recommendations were spot on.',
       rating: 5,
-      image: '/placeholder.svg'
+      image: '/placeholder.png'
     },
     {
       name: 'Grace M.',
       text: 'Finally found products that work for my sensitive skin.',
       rating: 5,
-      image: '/placeholder.svg'
+      image: '/placeholder.png'
     },
     {
       name: 'Sarah L.',
       text: 'The personalized routine transformed my skincare game completely.',
       rating: 5,
-      image: '/placeholder.svg'
+      image: '/placeholder.png'
     }
   ];
 
@@ -75,7 +75,7 @@ const Landing = () => {
                 muted
                 loop
                 playsInline
-                poster="/placeholder.svg"
+                poster="/placeholder.png"
               >
                 <source src="/hero-transformation.mp4" type="video/mp4" />
               </video>
@@ -206,9 +206,11 @@ const Landing = () => {
                     </div>
                     <p className="mb-4 italic">"{testimonial.text}"</p>
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-glow-pink rounded-full flex items-center justify-center text-white font-semibold">
-                        {testimonial.name.charAt(0)}
-                      </div>
+                      <img
+                        src={testimonial.image}
+                        alt={`${testimonial.name} testimonial`}
+                        className="w-8 h-8 rounded-full object-cover"
+                      />
                       <span className="font-medium">{testimonial.name}</span>
                     </div>
                   </CardContent>
