@@ -51,7 +51,7 @@ const Auth = () => {
         title: 'Welcome to Glow AI!',
         description: 'Your account has been created successfully.',
       });
-      navigate('/face-scan');
+      navigate('/landing');
     }
 
     setIsLoading(false);

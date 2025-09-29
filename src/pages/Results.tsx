@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { ArrowLeft, RefreshCw, Star, ExternalLink, Lock, Sparkles } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import Navigation from '../components/Navigation';
 
 interface Product {
   id: string;
@@ -140,18 +141,20 @@ const Results = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-glow-light-pink via-background to-glow-light-pink p-4">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <Button 
-            variant="ghost" 
-            onClick={() => navigate('/')}
-            className="mb-4"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Home
-          </Button>
+    <div className="min-h-screen bg-gradient-to-br from-glow-light-pink via-background to-glow-light-pink">
+      <Navigation />
+      <div className="p-4">
+        <div className="max-w-4xl mx-auto">
+          {/* Header */}
+          <div className="mb-8">
+            <Button
+              variant="ghost"
+              onClick={() => navigate('/')}
+              className="mb-4"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Home
+            </Button>
           
           <div className="text-center">
             <h1 className="text-3xl font-bold mb-2">Your Skincare Results</h1>
@@ -276,6 +279,7 @@ const Results = () => {
           >
             Continue to Products
           </Button>
+        </div>
         </div>
       </div>
     </div>

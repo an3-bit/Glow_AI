@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import Navigation from '../components/Navigation';
 
 interface QuestionnaireData {
   skin_type: string;
@@ -108,18 +109,20 @@ const Questionnaire = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-glow-light-pink via-background to-glow-light-pink p-4">
-      <div className="max-w-2xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <Button 
-            variant="ghost" 
-            onClick={handleBack}
-            className="mb-4"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back
-          </Button>
+    <div className="min-h-screen bg-gradient-to-br from-glow-light-pink via-background to-glow-light-pink">
+      <Navigation />
+      <div className="p-4">
+        <div className="max-w-2xl mx-auto">
+          {/* Header */}
+          <div className="mb-8">
+            <Button
+              variant="ghost"
+              onClick={handleBack}
+              className="mb-4"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back
+            </Button>
           
           <div className="text-center mb-6">
             <h1 className="text-2xl font-bold mb-2">Skincare Questionnaire</h1>
@@ -203,6 +206,7 @@ const Questionnaire = () => {
             </CardContent>
           </Card>
         )}
+        </div>
       </div>
     </div>
   );

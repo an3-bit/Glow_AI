@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { ArrowLeft, CheckCircle, Crown, Sparkles, CreditCard, Smartphone } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import Navigation from '../components/Navigation';
 
 interface PlanDetails {
   id: 'standard' | 'premium';
@@ -94,18 +95,20 @@ const Subscription = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-glow-light-pink via-background to-glow-light-pink p-4">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <Button 
-            variant="ghost" 
-            onClick={() => navigate('/')}
-            className="mb-4"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Home
-          </Button>
+    <div className="min-h-screen bg-gradient-to-br from-glow-light-pink via-background to-glow-light-pink">
+      <Navigation />
+      <div className="p-4">
+        <div className="max-w-4xl mx-auto">
+          {/* Header */}
+          <div className="mb-8">
+            <Button
+              variant="ghost"
+              onClick={() => navigate('/')}
+              className="mb-4"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Home
+            </Button>
           
           <div className="text-center">
             <h1 className="text-3xl font-bold mb-2">Choose Your Glow Plan</h1>
@@ -312,6 +315,7 @@ const Subscription = () => {
               </CardContent>
             </Card>
           </div>
+        </div>
         </div>
       </div>
     </div>

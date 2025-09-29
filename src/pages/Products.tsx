@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { ArrowLeft, Star, ExternalLink, Filter, Search } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import Navigation from '../components/Navigation';
 
 interface Product {
   id: string;
@@ -141,18 +142,20 @@ const Products = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-glow-light-pink via-background to-glow-light-pink p-4">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <Button 
-            variant="ghost" 
-            onClick={() => navigate('/')}
-            className="mb-4"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Home
-          </Button>
+    <div className="min-h-screen bg-gradient-to-br from-glow-light-pink via-background to-glow-light-pink">
+      <Navigation />
+      <div className="p-4">
+        <div className="max-w-6xl mx-auto">
+          {/* Header */}
+          <div className="mb-8">
+            <Button
+              variant="ghost"
+              onClick={() => navigate('/')}
+              className="mb-4"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Home
+            </Button>
           
           <div className="text-center mb-6">
             <h1 className="text-3xl font-bold mb-2">Skincare Products</h1>
@@ -383,9 +386,10 @@ const Products = () => {
             Continue to Subscription
           </Button>
         </div>
+        </div>
       </div>
-  </div>
-);
+    </div>
+  );
 };
 
 export default Products;

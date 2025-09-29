@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Camera, Upload, Sparkles, RefreshCw } from 'lucide-react';
+import Navigation from '../components/Navigation';
 
 interface FaceScanResult {
   skin_tone: 'Light' | 'Medium' | 'Dark';
@@ -128,18 +129,20 @@ const FaceScan = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-glow-light-pink via-background to-glow-light-pink p-4">
-      <div className="max-w-2xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <Button 
-            variant="ghost" 
-            onClick={() => navigate('/')}
-            className="mb-4"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Home
-          </Button>
+    <div className="min-h-screen bg-gradient-to-br from-glow-light-pink via-background to-glow-light-pink">
+      <Navigation />
+      <div className="p-4">
+        <div className="max-w-2xl mx-auto">
+          {/* Header */}
+          <div className="mb-8">
+            <Button
+              variant="ghost"
+              onClick={() => navigate('/')}
+              className="mb-4"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Home
+            </Button>
           
           <div className="text-center">
             <h1 className="text-3xl font-bold mb-2">Face Scan Analysis</h1>
@@ -338,6 +341,7 @@ const FaceScan = () => {
             </Button>
           </div>
         )}
+        </div>
       </div>
     </div>
   );

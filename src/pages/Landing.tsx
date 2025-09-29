@@ -4,7 +4,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Play, CheckCircle, Star, ArrowRight } from 'lucide-react';
+import { Play, CheckCircle, Star, ArrowRight, FileText, Camera, BarChart3, ShoppingBag, CreditCard, User, Sparkles } from 'lucide-react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 
@@ -48,11 +48,27 @@ const Landing = () => {
         <Navigation />
       </div>
       <div className="flex-1 flex flex-col">
+        {/* Welcome Section for Authenticated Users */}
+        {user && (
+          <section className="px-4 py-6 bg-gradient-to-r from-glow-pink/10 to-glow-purple/10 border-b border-glow-pink/20">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-2xl font-bold mb-2">
+                Welcome back, {user.user_metadata?.name || 'User'}! 👋
+              </h2>
+              <p className="text-muted-foreground">
+                Ready to continue your personalized skincare journey?
+              </p>
+            </div>
+          </section>
+        )}
         {/* Hero Section */}
-        <section className="px-4 py-16 text-center">
-          <div className="max-w-4xl mx-auto">
+        <section className="px-4 py-16 text-center relative overflow-hidden">
+          {/* Background decoration */}
+          <div className="absolute inset-0 bg-gradient-to-r from-glow-pink/5 via-transparent to-glow-purple/5 rounded-3xl -mx-4"></div>
+
+          <div className="max-w-4xl mx-auto relative z-10">
             {/* Hero Video */}
-            <div className="relative mb-8 rounded-2xl overflow-hidden shadow-2xl max-w-2xl mx-auto">
+            <div className="relative mb-8 rounded-2xl overflow-hidden shadow-2xl max-w-2xl mx-auto transform hover:scale-105 transition-transform duration-300">
               <video
                 className="w-full h-auto"
                 autoPlay
@@ -63,10 +79,10 @@ const Landing = () => {
               >
                 <source src="/hero-transformation.mp4" type="video/mp4" />
               </video>
-              <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                <Button 
-                  size="lg" 
-                  className="bg-white/90 text-black hover:bg-white"
+              <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                <Button
+                  size="lg"
+                  className="bg-white/90 text-black hover:bg-white shadow-lg transform hover:scale-110 transition-all duration-200"
                   onClick={() => {
                     const video = document.querySelector('video') as HTMLVideoElement;
                     if (video) {
@@ -81,34 +97,49 @@ const Landing = () => {
             </div>
 
             <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-              Your Personalized{' '}
+              {user ? 'Continue Your' : 'Your Personalized'}{' '}
               <span className="bg-gradient-to-r from-glow-pink to-glow-purple bg-clip-text text-transparent">
                 Skincare Journey
               </span>{' '}
-              Starts Here
+              {user ? 'Today' : 'Starts Here'}
             </h1>
-            
+
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Answer 4 quick questions or scan your face to get tailored product recommendations powered by AI.
+              {user
+                ? 'Pick up where you left off or explore new features to enhance your skincare routine.'
+                : 'Answer 4 quick questions or scan your face to get tailored product recommendations powered by AI.'
+              }
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Button 
+              <Button
                 size="lg"
-                className="bg-glow-pink hover:bg-glow-pink/90 text-lg px-8 py-4"
+                className="bg-glow-pink hover:bg-glow-pink/90 text-lg px-8 py-4 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
                 onClick={() => navigate('/questionnaire')}
               >
-                Take Questionnaire
+                {user ? 'Continue Questionnaire' : 'Take Questionnaire'}
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
-              <Button 
+              <Button
                 size="lg"
                 variant="outline"
-                className="border-glow-purple text-glow-purple hover:bg-glow-purple hover:text-white text-lg px-8 py-4"
+                className="border-glow-purple text-glow-purple hover:bg-glow-purple hover:text-white text-lg px-8 py-4 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
                 onClick={() => navigate('/face-scan')}
               >
+                <Camera className="w-5 h-5 mr-2" />
                 Scan Your Face
               </Button>
+              {user && (
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-glow-pink text-glow-pink hover:bg-glow-pink hover:text-white text-lg px-8 py-4 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
+                  onClick={() => navigate('/products')}
+                >
+                  <ShoppingBag className="w-5 h-5 mr-2" />
+                  Browse Products
+                </Button>
+              )}
             </div>
 
             {/* Value Props */}
@@ -130,6 +161,35 @@ const Landing = () => {
             </div>
           </div>
         </section>
+
+        {/* Onboarding Progress for Authenticated Users */}
+        {user && (
+          <section className="px-4 py-16 bg-white/30">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold text-center mb-8">Your Skincare Journey</h2>
+              <div className="grid md:grid-cols-3 gap-6">
+                {[
+                  { step: 1, title: 'Take Questionnaire', desc: 'Answer 4 quick questions', completed: false, route: '/questionnaire' },
+                  { step: 2, title: 'Face Scan', desc: 'Upload or scan your face', completed: false, route: '/face-scan' },
+                  { step: 3, title: 'View Results', desc: 'Get personalized recommendations', completed: false, route: '/results' }
+                ].map((item, index) => (
+                  <Card key={index} className={`p-6 text-center hover:shadow-lg transition-all cursor-pointer ${item.completed ? 'bg-green-50 border-green-200' : 'hover:bg-glow-pink/5'}`} onClick={() => navigate(item.route)}>
+                    <CardContent className="pt-0">
+                      <div className={`w-12 h-12 rounded-full mx-auto mb-4 flex items-center justify-center text-lg font-bold ${item.completed ? 'bg-green-500 text-white' : 'bg-glow-pink text-white'}`}>
+                        {item.completed ? <CheckCircle className="w-6 h-6" /> : item.step}
+                      </div>
+                      <h3 className="font-semibold mb-2">{item.title}</h3>
+                      <p className="text-sm text-muted-foreground mb-4">{item.desc}</p>
+                      <Button variant={item.completed ? 'secondary' : 'default'} size="sm" className={item.completed ? '' : 'bg-glow-pink hover:bg-glow-pink/90'}>
+                        {item.completed ? 'Completed' : 'Start'}
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Testimonials */}
         <section className="px-4 py-16 bg-white/50">
@@ -163,17 +223,17 @@ const Landing = () => {
           const subscriptionLevel = (user as any).subscription_level || 'none';
           const accessLinks = {
             premium: [
-              { to: '/questionnaire', label: 'Take Questionnaire' },
-              { to: '/face-scan', label: 'Face Scan' },
-              { to: '/results', label: 'View Results' },
-              { to: '/products', label: 'Browse Products' },
-              { to: '/subscription', label: 'Manage Subscription' },
-              { to: '/profile', label: 'Profile' }
+              { to: '/questionnaire', label: 'Take Questionnaire', icon: FileText },
+              { to: '/face-scan', label: 'Face Scan', icon: Camera },
+              { to: '/results', label: 'View Results', icon: BarChart3 },
+              { to: '/products', label: 'Browse Products', icon: ShoppingBag },
+              { to: '/subscription', label: 'Manage Subscription', icon: CreditCard },
+              { to: '/profile', label: 'Profile', icon: User }
             ],
             basic: [
-              { to: '/questionnaire', label: 'Take Questionnaire' },
-              { to: '/face-scan', label: 'Face Scan' },
-              { to: '/products', label: 'Browse Products' }
+              { to: '/questionnaire', label: 'Take Questionnaire', icon: FileText },
+              { to: '/face-scan', label: 'Face Scan', icon: Camera },
+              { to: '/products', label: 'Browse Products', icon: ShoppingBag }
             ],
             none: []
           };
@@ -185,21 +245,62 @@ const Landing = () => {
               <div className="max-w-4xl mx-auto text-center">
                 <h2 className="text-3xl font-bold mb-8">Quick Access</h2>
                 <div className="grid md:grid-cols-3 gap-4">
-                  {links.map((link, index) => (
-                    <Button
-                      key={index}
-                      variant="outline"
-                      className="h-16 text-lg border-glow-purple hover:bg-glow-purple hover:text-white"
-                      onClick={() => navigate(link.to)}
-                    >
-                      {link.label}
-                    </Button>
-                  ))}
+                  {links.map((link, index) => {
+                    const IconComponent = link.icon;
+                    return (
+                      <Button
+                        key={index}
+                        variant="outline"
+                        className="h-20 text-lg border-glow-purple hover:bg-glow-purple hover:text-white flex flex-col gap-2"
+                        onClick={() => navigate(link.to)}
+                      >
+                        <IconComponent className="w-6 h-6" />
+                        {link.label}
+                      </Button>
+                    );
+                  })}
                 </div>
               </div>
             </section>
           ) : null;
         })()}
+
+        {/* Recommended Products for Authenticated Users */}
+        {user && (
+          <section className="px-4 py-16">
+            <div className="max-w-6xl mx-auto">
+              <h2 className="text-3xl font-bold text-center mb-8">Recommended for You</h2>
+              <div className="grid md:grid-cols-3 gap-6">
+                {[
+                  { name: 'Hydrating Cleanser', price: 'KSh 1,200', desc: 'Gentle daily cleanser for all skin types' },
+                  { name: 'Vitamin C Serum', price: 'KSh 2,500', desc: 'Brightening serum with hyaluronic acid' },
+                  { name: 'Moisturizing Cream', price: 'KSh 1,800', desc: 'Lightweight hydration for day and night' }
+                ].map((product, index) => (
+                  <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
+                    <CardContent className="pt-0">
+                      <div className="w-full h-32 bg-gradient-to-br from-glow-pink/20 to-glow-purple/20 rounded-lg mb-4 flex items-center justify-center">
+                        <span className="text-4xl">🧴</span>
+                      </div>
+                      <h3 className="font-semibold mb-2">{product.name}</h3>
+                      <p className="text-sm text-muted-foreground mb-3">{product.desc}</p>
+                      <div className="flex justify-between items-center">
+                        <span className="font-bold text-glow-pink">{product.price}</span>
+                        <Button size="sm" className="bg-glow-pink hover:bg-glow-pink/90">
+                          View Details
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+              <div className="text-center mt-8">
+                <Button variant="outline" onClick={() => navigate('/products')} className="border-glow-purple text-glow-purple hover:bg-glow-purple hover:text-white">
+                  View All Products
+                </Button>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Subscription Teaser */}
         <section className="px-4 py-16">
