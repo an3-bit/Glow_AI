@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
@@ -12,6 +12,12 @@ const Landing = () => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const [showFloatingCTA, setShowFloatingCTA] = useState(false);
+  const [isMuted, setIsMuted] = useState(false); // Start with sound ON
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  // Helper to update iframe src for mute/unmute
+  const getIframeSrc = () =>
+    `https://www.youtube.com/embed/J1juUbS92pM?autoplay=1&mute=${isMuted ? 1 : 0}&controls=0&modestbranding=1&rel=0&playsinline=1&loop=1&playlist=J1juUbS92pM`;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -62,37 +68,38 @@ const Landing = () => {
           </section>
         )}
         {/* Hero Section */}
-        <section className="px-4 py-16 text-center relative overflow-hidden">
-          {/* Background decoration */}
-          <div className="absolute inset-0 bg-gradient-to-r from-glow-pink/5 via-transparent to-glow-purple/5 rounded-3xl -mx-4"></div>
-
-          <div className="max-w-4xl mx-auto relative z-10">
-            {/* Hero Video */}
-            <div className="relative mb-8 rounded-2xl overflow-hidden shadow-2xl max-w-2xl mx-auto transform hover:scale-105 transition-transform duration-300">
-              <video
-                className="w-full h-auto"
-                autoPlay
-                muted
-                loop
-                playsInline
-                poster="/placeholder.png"
+        <section className="px-4 py-16 text-center">
+          <div className="max-w-4xl mx-auto">
+            <div className="relative mb-8 rounded-2xl overflow-hidden shadow-2xl max-w-2xl mx-auto" style={{ aspectRatio: '16/9', width: '100%', maxWidth: '100%' }}>
+              {/* Volume Button on the left, always visible */}
+              <button
+                className="absolute left-4 top-4 z-20 bg-white/90 hover:bg-white rounded-full p-2 shadow border border-gray-200"
+                onClick={() => setIsMuted((m) => !m)}
+                aria-label={isMuted ? 'Unmute' : 'Mute'}
+                style={{ transition: 'background 0.2s' }}
               >
-                <source src="/hero-transformation.mp4" type="video/mp4" />
-              </video>
-              <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
-                <Button
-                  size="lg"
-                  className="bg-white/90 text-black hover:bg-white shadow-lg transform hover:scale-110 transition-all duration-200"
-                  onClick={() => {
-                    const video = document.querySelector('video') as HTMLVideoElement;
-                    if (video) {
-                      video.muted = !video.muted;
-                    }
-                  }}
-                >
-                  <Play className="w-6 h-6 mr-2" />
-                  Play with Sound
-                </Button>
+                {isMuted ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 9v6h4l5 5V4l-5 5H9z" />
+                  </svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 9v6h4l5 5V4l-5 5H9z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 19L5 5" />
+                  </svg>
+                )}
+              </button>
+              <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+                <iframe
+                  ref={iframeRef}
+                  className="w-auto h-full object-cover rounded-2xl"
+                  src={getIframeSrc()}
+                  title="FaceToGlow Hero Video"
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                  frameBorder="0"
+                  style={{ height: '100%', aspectRatio: '9/16', border: 0 }}
+                />
               </div>
             </div>
 

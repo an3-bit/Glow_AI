@@ -21,6 +21,7 @@ interface Product {
   links: { store: string; url: string }[];
   skin_types?: string[];
   goals?: string[];
+  image?: string; // Added image field
 }
 
 const Products = () => {
@@ -55,7 +56,8 @@ const Products = () => {
               { store: 'Amazon', url: 'https://amazon.com' }
             ],
             skin_types: ['All', 'Sensitive', 'Dry'],
-            goals: ['Hydration', 'Basic Care']
+            goals: ['Hydration', 'Basic Care'],
+            image: 'https://images.pexels.com/photos/3738316/pexels-photo-3738316.jpeg?auto=compress&w=400' // Cleanser
           },
           {
             id: '2',
@@ -69,7 +71,8 @@ const Products = () => {
               { store: 'Jumia', url: 'https://jumia.co.ke' }
             ],
             skin_types: ['Normal', 'Combination', 'Oily'],
-            goals: ['Glowing skin', 'Even tone', 'Anti-aging']
+            goals: ['Glowing skin', 'Even tone', 'Anti-aging'],
+            image: 'https://images.pexels.com/photos/1667078/pexels-photo-1667078.jpeg?auto=compress&w=400' // Serum
           },
           {
             id: '3',
@@ -82,7 +85,8 @@ const Products = () => {
               { store: 'Pharmacy', url: 'https://example.com' }
             ],
             skin_types: ['Dry', 'Normal', 'Sensitive'],
-            goals: ['Hydration', 'Anti-aging']
+            goals: ['Hydration', 'Anti-aging'],
+            image: 'https://images.pexels.com/photos/3373746/pexels-photo-3373746.jpeg?auto=compress&w=400' // Moisturizer
           }
         ];
         setProducts(mockProducts);
@@ -252,6 +256,7 @@ const Products = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProducts.map((product) => (
             <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+              <img src={product.image} alt={product.name} className="w-full h-48 object-cover" />
               <CardHeader>
                 <div className="flex justify-between items-start">
                   <div>
