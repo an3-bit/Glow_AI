@@ -34,7 +34,7 @@ const Navigation: React.FC = () => {
               to="/landing"
               className="text-2xl font-bold bg-gradient-to-r from-glow-pink to-glow-purple bg-clip-text text-transparent hover:opacity-80 transition-opacity"
             >
-              FaceToGlow
+              GlowAI
             </Link>
           </div>
 
