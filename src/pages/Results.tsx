@@ -101,7 +101,7 @@ const Results = () => {
                   rating: 4.0,
                   reviews_count: 100,
                   description: 'A basic cleanser for all skin types.',
-                  image: 'https://images.pexels.com/photos/3738341/pexels-photo-3738341.jpeg',
+                  image: 'https://images.pexels.com/photos/7691159/pexels-photo-7691159.jpeg',
                   ingredients: ['Water', 'Glycerin'],
                   links: [{ store: 'Jumia', url: 'https://jumia.co.ke' }]
                 },
@@ -112,7 +112,7 @@ const Results = () => {
                   rating: 4.2,
                   reviews_count: 150,
                   description: 'Hydrating moisturizer for daily use.',
-                  image: 'https://images.pexels.com/photos/8355180/pexels-photo-8355180.jpeg',
+                  image: 'https://images.pexels.com/photos/7615869/pexels-photo-7615869.jpeg',
                   ingredients: ['Glycerin', 'Shea Butter', 'Aloe Vera'],
                   links: [{ store: 'Amazon', url: 'https://amazon.com' }]
                 }
